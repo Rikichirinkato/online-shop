@@ -6,6 +6,7 @@ class ProductList {
             .then(products => {
                 this.products = products;
                 this.renderProducts(renderContainer, products);
+                this.renderCarousel(renderContainer, products);
                 this.addEventListeners();
             })
     }
@@ -35,6 +36,19 @@ class ProductList {
         });
         container.html(productListDomString);
     }
+    
+    renderCarousel(container, products) {
+        let productListDomString = ''
+        products.forEach(product => {
+            productListDomString += 
+                `<div class="carousel-item">
+                  <img class="d-block w-100" src="img/products/${product.image}" alt="${product.title}">
+                </div>`;
+        });
+        $('.carousel-inner').html(productListDomString);
+        $('.carousel-item').eq(0).addClass('active')
+    }
+    
     addEventListeners() {
         $('#productInfoModal').on('show.bs.modal', event => {
             const button = $(event.relatedTarget); // Button that triggered the modal
